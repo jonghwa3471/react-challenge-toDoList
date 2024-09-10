@@ -9,10 +9,19 @@ export enum Categories {
 export interface IToDo {
   text: string;
   id: number;
-  category: Categories;
+  category: string;
 }
 
-export const categoryState = atom<Categories>({
+let newCategory =
+  localStorage.getItem("newCategory") || '["TO_DO", "DOING", "DONE"]';
+let localCategory = JSON.parse(newCategory);
+
+export const categoriesState = atom<string[]>({
+  key: "categoreis",
+  default: localCategory,
+});
+
+export const categoryState = atom({
   key: "category",
   default: Categories.TO_DO,
 });
